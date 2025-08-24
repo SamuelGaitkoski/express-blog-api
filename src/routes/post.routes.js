@@ -1,12 +1,15 @@
 import { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import PostControllerClass from "../controllers/post.controller.js";
 
 const router = Router();
 
-router.get("/", asyncHandler(getAllPosts));
-router.get("/:id", asyncHandler(getPost));
-router.post("/", asyncHandler(createNewPost));
-router.put("/:id", asyncHandler(updatePostController));
-router.delete("/:id", asyncHandler(deletePostController));
+const PostController = new PostControllerClass();
+
+router.get("/", asyncHandler(PostController.getAll));
+router.get("/:id", asyncHandler(PostController.getById));
+router.post("/", asyncHandler(PostController.create));
+router.put("/:id", asyncHandler(PostController.update));
+router.delete("/:id", asyncHandler(PostController.delete));
 
 export default router;
