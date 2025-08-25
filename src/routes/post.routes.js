@@ -110,6 +110,8 @@ router.get(
  *                   type: string
  *                 updatedAt:
  *                   type: string
+ *       400:
+ *         description: Title and Content are required
  */
 router.post(
   "/",

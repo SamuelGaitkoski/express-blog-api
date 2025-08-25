@@ -23,9 +23,9 @@ class PostController {
   }
 
   async create(req, res) {
-    const { title, content, author } = req.body;
+    const { title, content } = req.body;
     if (!title) {
-      return res.status(400).json({ error: "title is required" });
+      return res.status(400).json({ error: "Title and Content are required" });
     }
 
     const post = await PostService.create({ title, content, author });
