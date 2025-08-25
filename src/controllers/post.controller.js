@@ -7,16 +7,6 @@ class PostController {
     res.json(posts);
   }
 
-  async create(req, res) {
-    const { title, content, author } = req.body;
-    if (!title) {
-      return res.status(400).json({ error: "title is required" });
-    }
-
-    const post = await PostService.create({ title, content, author });
-    res.status(201).json(post);
-  }
-
   async getById(req, res) {
     const { id } = req.params;
 
@@ -30,6 +20,16 @@ class PostController {
     }
 
     res.json(post);
+  }
+
+  async create(req, res) {
+    const { title, content, author } = req.body;
+    if (!title) {
+      return res.status(400).json({ error: "title is required" });
+    }
+
+    const post = await PostService.create({ title, content, author });
+    res.status(201).json(post);
   }
 
   async update(req, res) {
