@@ -58,6 +58,8 @@ router.get(
  *                   type: string
  *                 updatedAt:
  *                   type: string
+ *       400:
+ *         description: Invalid Post id
  *       404:
  *         description: Post not found
  */
