@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "./middlewares/logger.middleware.js";
 import errorHandler from "./middlewares/error-handler.middleware.js";
+import { swaggerUi, swaggerSpec } from "./swagger.js";
 import postsRouter from "./routes/posts.js";
 
 const app = express();
@@ -16,6 +17,9 @@ app.get("/health", (req, res) => res.json({ ok: true }));
 
 // Routes
 app.use("/posts", postsRouter);
+
+// Swagger docs
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // 404 for unknown routes
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
