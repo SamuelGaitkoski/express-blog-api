@@ -36,7 +36,7 @@ class PostController {
     const { id } = req.params;
 
     if (!mongoose.isValidObjectId(id)) {
-      return res.status(400).json({ error: "invalid Post id" });
+      return res.status(400).json({ error: "Invalid Post id" });
     }
 
     const post = await PostService.update(id, req.body);
