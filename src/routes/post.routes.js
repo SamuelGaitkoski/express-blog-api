@@ -8,6 +8,16 @@ const router = Router();
 
 const PostController = new PostControllerClass();
 
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: Get all posts
+ *     tags: [Posts]
+ *     responses:
+ *       200:
+ *         description: List of posts
+ */
 router.get(
   "/",
   authenticateToken,
@@ -22,6 +32,30 @@ router.get(
   asyncHandler(PostController.getById.bind(PostController))
 );
 
+/**
+ * @swagger
+ * /posts:
+ *   post:
+ *     summary: Create a new post
+ *     tags: [Posts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Post created successfully
+ */
 router.post(
   "/",
   authenticateToken,
