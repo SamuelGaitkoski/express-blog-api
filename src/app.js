@@ -1,6 +1,6 @@
 import express from "express";
-import logger from "./middlewares/logger.js";
-import errorHandler from "./middlewares/errorHandler.js";
+import logger from "./middlewares/logger.middleware.js";
+import errorHandler from "./middlewares/error-handler.middleware.js";
 import postsRouter from "./routes/posts.js";
 
 const app = express();
