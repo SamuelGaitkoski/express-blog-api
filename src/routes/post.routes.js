@@ -192,6 +192,8 @@ router.put(
  *     responses:
  *       204:
  *         description: Post deleted successfully
+ *       400:
+ *         description: Invalid Post id
  *       404:
  *         description: Post not found
  */
