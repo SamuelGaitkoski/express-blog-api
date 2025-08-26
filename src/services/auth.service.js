@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class AuthService {
-  async register(email, password, role = UserRole.USER) {
+  async register(email, password, adminCode) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw new Error("User already exists");
@@ -12,10 +12,16 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    let role = UserRole.USER;
+
+    if (adminCode && adminCode === process.env.ADMIN_CODE) {
+      finalRole = UserRole.ADMIN;
+    }
+
     const user = new User({
       email,
       password: hashedPassword,
-      role: role || UserRole.USER
+      role: role
     });
 
     await user.save();

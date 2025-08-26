@@ -2,9 +2,9 @@ const authService = new AuthService();
 
 export class AuthController {
   static async register(req, res) {
-    const { email, password, role } = req.body;
+    const { email, password, adminCode } = req.body;
 
-    const user = await authService.register(email, password, role || UserRole.USER);
+    const user = await authService.register(email, password, adminCode);
 
     return res.status(201).json({ message: "User registered successfully", user });
   }
@@ -13,7 +13,7 @@ export class AuthController {
     const { email, password } = req.body;
 
     const result = await authService.login(email, password);
-    
+
     return res.json(result);
   }
 }
