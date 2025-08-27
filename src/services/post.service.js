@@ -2,7 +2,7 @@ import { UserRole } from "../enums/user-role.enum";
 import Post from "../models/post.model";
 
 class PostService {
-  async getAll(userRole) {
+  async getAll(userRole, userId) {
     let posts;
 
     if (userRole === UserRole.ADMIN) {
@@ -13,7 +13,7 @@ class PostService {
         .lean();
     } else {
       posts = await Post
-        .find({ authorId: req.user.id })
+        .find({ authorId: userId })
         .sort({ createdAt: -1 })
         .populate("authorId", "fullName email")
         .lean();

@@ -3,7 +3,7 @@ import PostService from "../services/post.service.js";
 
 class PostController {
   async getAll(req, res) {
-    const posts = await PostService.getAll(req.user.role);
+    const posts = await PostService.getAll(req.user.role, req.user.id);
     res.json(posts);
   }
 
