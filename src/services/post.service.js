@@ -1,8 +1,16 @@
+import { UserRole } from "../enums/user-role.enum";
 import Post from "../models/post.model";
 
 class PostService {
-  async getAll() {
-    return await Post.find().sort({ createdAt: -1 }).lean();
+  async getAll(userRole) {
+    let posts;
+
+    if (userRole === UserRole.ADMIN) {
+      posts = await Post.find().sort({ createdAt: -1 }).lean();
+    } else {
+      posts = await Post.find({ author: req.user.id }).sort({ createdAt: -1 }).lean();
+    }
+    return posts;
   }
 
   async getById(id) {
