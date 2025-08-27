@@ -17,9 +17,13 @@ const router = Router();
  *           schema:
  *             type: object
  *             required:
+ *               - fullName
  *               - email
  *               - password
  *             properties:
+ *               fullName:
+ *                 type: string
+ *                 description: User full name
  *               email:
  *                 type: string
  *                 description: User email
@@ -33,7 +37,7 @@ const router = Router();
  *       201:
  *         description: User registered successfully
  *       400:
- *         description: Invalid input or user already exists
+ *         description: FullName, Email and Password are required
  *       500:
  *         description: Registration failed
  */
