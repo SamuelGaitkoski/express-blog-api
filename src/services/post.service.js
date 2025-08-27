@@ -8,7 +8,7 @@ class PostService {
     if (userRole === UserRole.ADMIN) {
       posts = await Post.find().sort({ createdAt: -1 }).lean();
     } else {
-      posts = await Post.find({ author: req.user.id }).sort({ createdAt: -1 }).lean();
+      posts = await Post.find({ authorId: req.user.id }).sort({ createdAt: -1 }).lean();
     }
     return posts;
   }
