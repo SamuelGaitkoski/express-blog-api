@@ -15,6 +15,7 @@ class PostController {
     }
 
     const post = await PostService.getById(id);
+
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
@@ -24,6 +25,7 @@ class PostController {
 
   async create(req, res) {
     const { title, content } = req.body;
+
     if (!title) {
       return res.status(400).json({ error: "Title and Content are required" });
     }
@@ -40,6 +42,7 @@ class PostController {
     }
 
     const post = await PostService.update(id, req.body);
+
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
@@ -55,6 +58,7 @@ class PostController {
     }
 
     const post = await PostService.delete(id);
+    
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
