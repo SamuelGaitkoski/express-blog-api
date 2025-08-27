@@ -22,7 +22,10 @@ class PostService {
   }
 
   async getById(id) {
-    return await Post.findById(id).lean();
+    return await Post
+      .findById(id)
+      .populate("authorId", "fullName email")
+      .lean();
   }
 
   async create(data) {
