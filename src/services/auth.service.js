@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class AuthService {
-  async register(email, password, adminCode) {
+  async register(fullName, email, password, adminCode) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw new Error("User already exists");
@@ -19,6 +19,7 @@ export class AuthService {
     }
 
     const user = new User({
+      fullName,
       email,
       password: hashedPassword,
       role: role
