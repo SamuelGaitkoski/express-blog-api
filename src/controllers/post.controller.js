@@ -30,7 +30,12 @@ class PostController {
       return res.status(400).json({ error: "Title and Content are required" });
     }
 
-    const post = await PostService.create({ title, content, author });
+    const post = await PostService.create({ 
+      title, 
+      content, 
+      authorId: req.user.id,
+    });
+
     res.status(201).json(post);
   }
 
@@ -58,7 +63,7 @@ class PostController {
     }
 
     const post = await PostService.delete(id);
-    
+
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
