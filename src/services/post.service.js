@@ -6,9 +6,17 @@ class PostService {
     let posts;
 
     if (userRole === UserRole.ADMIN) {
-      posts = await Post.find().sort({ createdAt: -1 }).lean();
+      posts = await Post
+        .find()
+        .sort({ createdAt: -1 })
+        .populate("authorId", "fullName email")
+        .lean();
     } else {
-      posts = await Post.find({ authorId: req.user.id }).sort({ createdAt: -1 }).lean();
+      posts = await Post
+        .find({ authorId: req.user.id })
+        .sort({ createdAt: -1 })
+        .populate("authorId", "fullName email")
+        .lean();
     }
     return posts;
   }
