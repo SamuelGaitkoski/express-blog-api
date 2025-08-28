@@ -20,7 +20,22 @@ describe("AuthService", () => {
   });
 
   describe("register", () => {
+    it("should throw error if user already exists", async () => {
+      // Stub User.findOne to simulate existing user
+      sandbox.stub(User, "findOne").resolves({ email: "test@test.com" });
+
+      try {
+        await authService.register("John Doe", "test@test.com", "123456");
+        throw new Error("Test failed - error not thrown");
+      } catch (err) {
+        expect(err.message).to.equal("User already exists");
+      }
+    });
+
     it("should register a user successfully", async () => {
+
+      sandbox.stub(User, "findOne").resolves(null); // no user exists
+
       // Arrange
       const userData = { fullName: "John Doe", email: "john@test.com", password: "123456" };
       const fakeUser = { ...userData, _id: "123", save: sandbox.stub().resolvesThis() };
@@ -44,6 +59,6 @@ describe("AuthService", () => {
   });
 
   describe("login", () => {
-    
+
   });
 });
