@@ -70,7 +70,16 @@ describe("AuthService", () => {
     });
 
     it("should throw error if password does not match", async () => { 
+      const fakeUser = { email: "john@test.com", password: "hashed" };
+      sandbox.stub(User, "findOne").resolves(fakeUser);
+      sandbox.stub(bcrypt, "compare").resolves(false);
 
+      try {
+        await authService.login("john@test.com", "wrongpass");
+        throw new Error("Test failed - error not thrown");
+      } catch (err) {
+        expect(err.message).to.equal("Invalid credentials");
+      }
     });
 
     it("should return token and user if credentials are valid", async () => {
