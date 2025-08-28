@@ -85,4 +85,19 @@ describe("PostService", () => {
       expect(result).to.deep.equal(updatedPost);
     });
   });
+
+  describe("delete", () => {
+    it("should delete and return the post", async () => {
+      id = "123";
+      const deletedPost = { _id: id, title: "Deleted Post", content: "Content", authorId: "123" };
+      const deleteStub = sandbox
+        .stub(Post, "findByIdAndDelete")
+        .resolves(deletedPost);
+
+      const result = await postService.delete(id);
+
+      expect(deleteStub.calledOnceWith(id)).to.be.true;
+      expect(result).to.deep.equal(deletedPost);
+    });
+  });
 });
