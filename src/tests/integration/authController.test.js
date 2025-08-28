@@ -2,7 +2,7 @@ import request from "supertest";
 import { expect } from "chai";
 
 import app from "../../src/app.js"; // Your Express app
-import User from "../../src/models/User.js";
+import User from "../../models/user.model.js";
 import { connectDB, disconnectDB } from "./setup.js";
 
 describe("Auth Routes (Integration)", () => {
