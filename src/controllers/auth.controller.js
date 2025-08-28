@@ -1,3 +1,5 @@
+import { AuthService } from "../services/auth.service.js";
+
 const authService = new AuthService();
 
 export class AuthController {
