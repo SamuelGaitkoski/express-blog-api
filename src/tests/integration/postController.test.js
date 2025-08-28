@@ -23,12 +23,17 @@ describe("Post Routes (Integration)", () => {
 
   describe("POST /posts", () => {
     it("should create a new post", async () => {
-      // First, create a user to be the author
+      // First, register a user to be the author
       const userRes = await request(app)
         .post("/auth/register")
         .send({ fullName: "John Doe", email: "john@example.com", password: "123456" });
 
-      const token = userRes.body.token;
+      // Log in to get the token
+      const loginRes = await request(app)
+        .post("/auth/login")
+        .send({ email: "john@example.com", password: "123456" });
+
+      const token = loginRes.body.token;
 
       const postData = { title: "Test Post", content: "Hello World" };
 
