@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import Post from "../../models/Post.js";
+import Post from "../../models/post.model.js";
 import postService from "../../services/post.service.js";
 
 describe("PostService", () => {
@@ -67,6 +67,22 @@ describe("PostService", () => {
       expect(result.title).to.equal(data.title);
       expect(result.content).to.equal(data.content);
       expect(result.authorId).to.equal(data.authorId);
+    });
+  });
+
+  describe("update", () => {
+    it("should update and return the post", async () => {
+      const id = "123";
+      const data = { title: "Updated Post" };
+      const updatedPost = { _id: id, title: "Updated Post", content: "Content", authorId: "123" };
+      const updateStub = sandbox
+        .stub(Post, "findByIdAndUpdate")
+        .resolves(updatedPost);
+
+      const result = await postService.update(id, data);
+
+      expect(updateStub.calledOnceWith(id, data, { new: true, runValidators: true })).to.be.true;
+      expect(result).to.deep.equal(updatedPost);
     });
   });
 });
