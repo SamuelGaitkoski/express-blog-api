@@ -3,15 +3,17 @@ import sinon from "sinon";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import authService from "../../services/auth.service.js";
+import { AuthService } from "../../services/auth.service.js";
 import User from "../../models/user.model.js";
 
 describe("AuthService", () => {
   let sandbox;
+  let authService;
 
   beforeEach(() => {
     // Create fresh sandbox for each test to avoid side-effects
     sandbox = sinon.createSandbox();
+    authService = new AuthService();
   });
 
   afterEach(() => {
