@@ -59,7 +59,14 @@ describe("AuthService", () => {
 
   describe("login", () => {
     it("should throw error if user not found", async () => { 
-      
+      sandbox.stub(User, "findOne").resolves(null);
+
+      try {
+        await authService.login("wrong@test.com", "123456");
+        throw new Error("Test failed - error not thrown");
+      } catch (err) {
+        expect(err.message).to.equal("Invalid credentials");
+      }
     });
 
     it("should throw error if password does not match", async () => { 
