@@ -83,7 +83,16 @@ describe("Auth Routes (Integration)", () => {
     });
 
     it("should login with correct credentials", async () => {
-      
+      const res = await request(app)
+        .post("/auth/login")
+        .send({
+          email: "john@example.com",
+          password: "123456"
+        });
+
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property("token");
+      expect(res.body.user.fullName).to.equal("John Doe");
     });
 
     it("should return 400 if credentials are invalid", async () => {
