@@ -38,7 +38,7 @@ describe("PostService", () => {
       });
 
       const result = await postService.getAll("USER", "user123");
-      
+
       expect(result).to.equal(fakePosts);
     });
   });
@@ -51,9 +51,15 @@ describe("PostService", () => {
 
   describe("create", () => {
     it("should save and return a post", async () => {
+      const data = { title: "Test Post", content: "Content", authorId: "123" };
+      const saveStub = sandbox.stub(Post.prototype, "save").resolves(data);
 
+      const result = await postService.create(data);
+
+      expect(saveStub.calledOnce).to.be.true;
+      expect(result.title).to.equal(data.title);
+      expect(result.content).to.equal(data.content);
+      expect(result.authorId).to.equal(data.authorId);
     });
   });
-
-  
 });
