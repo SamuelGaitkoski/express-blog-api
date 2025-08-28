@@ -21,11 +21,28 @@ describe("Auth Routes (Integration)", () => {
 
   describe("POST /auth/register", () => {
     it("should register a new user", async () => {
+      const data = {
+        fullName: "John Doe",
+        email: "john@example.com",
+        password: "123456"
+      };
 
+      const res = await request(app)
+        .post("/auth/register")
+        .send({
+          fullName: data.fullName,
+          email: data.email,
+          password: data.password
+        });
+
+      expect(res.status).to.equal(201);
+      expect(res.body).to.have.property("token");
+      expect(res.body.user.fullName).to.equal(data.fullName);
+      expect(res.body.user.email).to.equal(data.email);
     });
 
     it("should return 400 if user already exists", async () => {
-
+      
     });
   });
 
