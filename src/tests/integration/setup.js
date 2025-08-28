@@ -15,4 +15,4 @@ export const connectDB = async () => {
 export const disconnectDB = async () => {
   await mongoose.disconnect();
   await mongoServer.stop();
-}
+};
