@@ -6,7 +6,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon --watch src src/server.js",
-    "test": "mocha --timeout 5000 'tests/**/*.test.js'",
+    "test": "mocha --timeout 5000 tests/**/*.test.js",
     "start": "node src/server.js"
   },
   "keywords": [],
