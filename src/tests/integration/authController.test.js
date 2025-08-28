@@ -59,6 +59,15 @@ describe("Auth Routes (Integration)", () => {
       expect(res.status).to.equal(400);
       expect(res.body.error).to.equal("User already exists");
     });
+
+    it("should return 400 if required fields are missing", async () => {
+      const res = await request(app)
+        .post("/auth/register")
+        .send({ email: "test@example.com", password: "123456" }); // missing fullName
+
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.equal("FullName, Email and Password are required");
+    });
   });
 
   describe("POST /auth/login", () => {
