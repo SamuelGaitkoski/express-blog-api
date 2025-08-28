@@ -30,7 +30,16 @@ describe("PostService", () => {
     });
 
     it("should return posts only by userId for non-admin", async () => {
+      const fakePosts = [{ title: "User Post" }];
+      const findStub = sandbox.stub(Post, "find").returns({
+        sort: sandbox.stub().returns({
+          populate: sandbox.stub().returns({ lean: () => fakePosts })
+        })
+      });
+
+      const result = await postService.getAll("USER", "user123");
       
+      expect(result).to.equal(fakePosts);
     });
   });
 
