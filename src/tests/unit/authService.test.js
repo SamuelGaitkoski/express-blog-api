@@ -58,6 +58,16 @@ describe("AuthService", () => {
   });
 
   describe("login", () => {
+    it("should throw error if user not found", async () => { 
+      
+    });
 
+    it("should throw error if password does not match", async () => { 
+
+    });
+
+    it("should return token and user if credentials are valid", async () => {
+
+    });
   });
 });
