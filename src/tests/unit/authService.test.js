@@ -83,7 +83,18 @@ describe("AuthService", () => {
     });
 
     it("should return token and user if credentials are valid", async () => {
+      const fakeUser = { _id: "1", email: "john@test.com", password: "hashed", fullName: "John Doe", role: "USER" };
+      const fakeToken = "fakeToken";
+      sandbox.stub(User, "findOne").resolves(fakeUser);
+      sandbox.stub(bcrypt, "compare").resolves(true);
+      sandbox.stub(jwt, "sign").returns(fakeToken);
 
+      const result = await authService.login("john@test.com", "123456");
+
+      expect(result.token).to.equal(fakeToken);
+      expect(result.user.fullName).to.equal(fakeUser.fullName);
+      expect(result.user.email).to.equal(fakeUser.email);
+      expect(result.user.role).to.equal(fakeUser.role);
     });
   });
 });
