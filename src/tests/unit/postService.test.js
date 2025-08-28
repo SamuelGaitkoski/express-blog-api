@@ -45,7 +45,14 @@ describe("PostService", () => {
 
   describe("getById", () => {
     it("should return a post by id", async () => {
-      
+      const fakePost = { title: "My Post", authorId: { fullName: "John Doe" } };
+      const findByIdStub = sandbox.stub(Post, "findById").returns({
+        populate: sandbox.stub().returns({ lean: () => fakePost })
+      });
+
+      const result = await postService.getById("post123");
+
+      expect(result).to.equal(fakePost);
     });
   });
 
