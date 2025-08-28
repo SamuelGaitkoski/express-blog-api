@@ -42,7 +42,22 @@ describe("Auth Routes (Integration)", () => {
     });
 
     it("should return 400 if user already exists", async () => {
-      
+      const data = {
+        fullName: "Existing User",
+        email: "exist@example.com",
+        password: "hashed"
+      };
+
+      const res = await request(app)
+        .post("/auth/register")
+        .send({
+          fullName: data.fullName,
+          email: data.email,
+          password: data.password
+        });
+
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.equal("User already exists");
     });
   });
 
