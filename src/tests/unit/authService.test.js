@@ -33,10 +33,9 @@ describe("AuthService", () => {
     });
 
     it("should register a user successfully", async () => {
-
+      // Arrange
       sandbox.stub(User, "findOne").resolves(null); // no user exists
 
-      // Arrange
       const userData = { fullName: "John Doe", email: "john@test.com", password: "123456" };
       const fakeUser = { ...userData, _id: "123", save: sandbox.stub().resolvesThis() };
 
