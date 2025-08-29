@@ -138,11 +138,17 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should return 404 if post not found", async () => {
+      const nonExistingId = new mongoose.Types.ObjectId();
+      const res = await request(app)
+        .get(`/posts/${nonExistingId}`)
+        .set("Authorization", `Bearer ${token}`);
 
+      expect(res.status).to.equal(404);
+      expect(res.body).to.have.property("error", "Post not found");
     });
 
     it("should return the post if it exists", async () => {
-
+      
     });
   });
 
