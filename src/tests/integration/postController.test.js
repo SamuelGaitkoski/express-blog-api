@@ -273,7 +273,12 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should return 400 for invalid id", async () => {
-      
+      const res = await request(app)
+        .delete("/posts/invalidId")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.equal("Invalid Post id");
     });
 
     it("should return 404 if post not found", async () => {
