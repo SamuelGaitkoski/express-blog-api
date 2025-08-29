@@ -213,7 +213,13 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should update the post and return it", async () => {
+      const res = await request(app)
+        .patch(`/posts/${postId}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send({ title: "Updated Title" });
 
+      expect(res.status).to.equal(200);
+      expect(res.body.title).to.equal("Updated Title");
     });
 
     it("should return 400 for invalid id", async () => {
