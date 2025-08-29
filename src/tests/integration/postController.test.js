@@ -186,4 +186,24 @@ describe("Post Routes (Integration)", () => {
       expect(res.body.authorId.fullName).to.equal("John Doe");
     });
   });
+
+  describe("PUT /posts/:id", () => {
+    let token, postId;
+
+    beforeEach(async () => {
+
+    });
+
+    it("should update the post and return it", async () => {
+
+    });
+
+    it("should return 400 for invalid id", async () => {
+
+    });
+
+    it("should return 404 if post not found", async () => {
+
+    });
+  });
 });
