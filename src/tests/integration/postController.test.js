@@ -265,7 +265,11 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should delete the post and return 204", async () => {
+      const res = await request(app)
+        .delete(`/posts/${postId}`)
+        .set("Authorization", `Bearer ${token}`);
 
+      expect(res.status).to.equal(204);
     });
 
     it("should return 400 for invalid id", async () => {
