@@ -103,8 +103,38 @@ describe("Post Routes (Integration)", () => {
   });
 
   describe("GET /posts/:id", () => {
-    it("should return 400 for invalid id", async () => {
+    let user;
+    let token;
+    let post;
 
+    beforeEach(async () => {
+      // Create a test user
+      user = await User.create({
+        fullName: "Test User",
+        email: "test@example.com",
+        password: "hashedpassword",
+        role: "user",
+      });
+
+      // mock auth
+      token = user.generateAuthToken();
+
+      // Create a post
+      post = await Post.create({
+        title: "Test Post",
+        content: "Some content",
+        authorId: user._id,
+      });
+    });
+
+    it("should return 400 for invalid id", async () => {
+      // Not a valid ObjectId
+      const res = await request(app)
+        .get("/posts/invalid-id")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(res.status).toBe(400);
+      expect(res.body).to.have.property("error", "Invalid Post id");
     });
 
     it("should return 404 if post not found", async () => {
@@ -112,7 +142,7 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should return the post if it exists", async () => {
-      
+
     });
   });
 
