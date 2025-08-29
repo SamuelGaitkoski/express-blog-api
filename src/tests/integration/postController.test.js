@@ -34,7 +34,7 @@ describe("Post Routes (Integration)", () => {
           fullName: "Admin User",
           email: "admin@example.com",
           password: "123456",
-          role: "admin"
+          adminCode: "fbabe63b-f0d7-4866-8058-143bcb0bda93"
         });
 
       // Create normal user
@@ -43,8 +43,7 @@ describe("Post Routes (Integration)", () => {
         .send({
           fullName: "Normal User",
           email: "user@example.com",
-          password: "123456",
-          role: "user"
+          password: "123456"
         });
 
       userId = userRes.body._id;
