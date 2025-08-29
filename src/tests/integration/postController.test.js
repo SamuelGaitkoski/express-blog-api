@@ -246,7 +246,23 @@ describe("Post Routes (Integration)", () => {
     let token, postId;
 
     beforeEach(async () => {
+      const user = await User.create({
+        fullName: "John Doe",
+        email: "john@example.com",
+        password: "123456"
+      });
 
+      // mock auth
+      token = user.generateAuthToken();
+
+      // Create a post
+      post = await Post.create({
+        title: "Delete Me",
+        content: "Hello",
+        authorId: user._id,
+      });
+
+      postId = post._id;
     });
 
     it("should delete the post and return 204", async () => {
