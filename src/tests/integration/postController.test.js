@@ -102,6 +102,20 @@ describe("Post Routes (Integration)", () => {
     });
   });
 
+  describe("GET /posts/:id", () => {
+    it("should return 400 for invalid id", async () => {
+
+    });
+
+    it("should return 404 if post not found", async () => {
+
+    });
+
+    it("should return the post if it exists", async () => {
+      
+    });
+  });
+
   describe("POST /posts", () => {
     it("should create a new post", async () => {
       // First, register a user to be the author
