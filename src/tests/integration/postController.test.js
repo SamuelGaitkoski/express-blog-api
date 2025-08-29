@@ -191,7 +191,25 @@ describe("Post Routes (Integration)", () => {
     let token, postId;
 
     beforeEach(async () => {
+      // Create a test user
+      user = await User.create({
+        fullName: "Test User",
+        email: "test@example.com",
+        password: "hashedpassword",
+        role: "user",
+      });
 
+      // mock auth
+      token = user.generateAuthToken();
+
+      // Create a post
+      post = await Post.create({
+        title: "Old Title",
+        content: "Hello",
+        authorId: user._id,
+      });
+
+      postId = post._id;
     });
 
     it("should update the post and return it", async () => {
