@@ -148,7 +148,14 @@ describe("Post Routes (Integration)", () => {
     });
 
     it("should return the post if it exists", async () => {
-      
+      const res = await request(app)
+        .get(`/posts/${post._id}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property("_id", post._id.toString());
+      expect(res.body).to.have.property("title", "Test Post");
+      expect(res.body.authorId).to.have.property("fullName", user.fullName);
     });
   });
 
