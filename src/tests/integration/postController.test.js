@@ -241,4 +241,24 @@ describe("Post Routes (Integration)", () => {
       expect(res.body.error).to.equal("Post not found");
     });
   });
+
+  describe("DELETE /posts/:id", () => {
+    let token, postId;
+
+    beforeEach(async () => {
+
+    });
+
+    it("should delete the post and return 204", async () => {
+
+    });
+
+    it("should return 400 for invalid id", async () => {
+      
+    });
+
+    it("should return 404 if post not found", async () => {
+      
+    });
+  });
 });
