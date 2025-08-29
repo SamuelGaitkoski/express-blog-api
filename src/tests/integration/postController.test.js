@@ -21,6 +21,49 @@ describe("Post Routes (Integration)", () => {
     await User.deleteMany({});
   });
 
+  describe("GET /posts", () => {
+    it("should return all posts for admin", async () => {
+      // Create admin user
+      const adminRes = await request(app)
+        .post("/auth/register")
+        .send({ fullName: "Admin", email: "admin@example.com", password: "123456", adminCode: process.env.ADMIN_CODE });
+      
+      const token = adminRes.body.token;
+
+      // Create a post
+      await Post.create({ title: "Post 1", content: "Content", authorId: adminRes.body.user._id });
+
+      const res = await request(app)
+        .get("/posts")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(res.status).to.equal(200);
+      expect(res.body).to.be.an("array").with.lengthOf(1);
+    });
+
+    it("should return only posts by user for non-admin", async () => {
+      // Create user
+      const userRes = await request(app)
+        .post("/auth/register")
+        .send({ fullName: "User", email: "user@example.com", password: "123456" });
+      const token = userRes.body.token;
+
+      // Create posts for another user
+      const otherUser = await User.create({ fullName: "Other", email: "other@example.com", password: "123456" });
+      await Post.create({ title: "Other Post", content: "Content", authorId: otherUser._id });
+
+      const res = await request(app)
+        .get("/posts")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(res.status).to.equal(200);
+      expect(res.body).to.be.an("array").with.lengthOf(0); // should not see other user's post
+    });
+  });
+
+
+
+
   describe("POST /posts", () => {
     it("should create a new post", async () => {
       // First, register a user to be the author
